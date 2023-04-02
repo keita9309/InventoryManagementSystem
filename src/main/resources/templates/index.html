@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>トップページ | 在庫管理アプリケーション</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id=”wrapper”>
+    <header id="index-header">
+        <div class="header-left">
+            <ul class="ul-left">
+                <li>
+                    <div class="apply-name">
+                        <h1>Zaiko</h1>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="header-right">
+            <ul class="ul-right">
+                <li sec:authorize="hasAuthority('ADMIN')">
+                    <span class="boundary">|</span>
+                    <a href="./users/list.html" th:href="@{/users}"
+                       class="a-link">登録者一覧</a>
+                </li>
+                <li>
+                    <span class="boundary">|</span>
+                    <a href="./inventories/list.html" th:href="@{/inventories}" class="a-link">在庫一覧</a>
+                    <span class="boundary">|</span>
+                </li>
+                <li>
+                    <a href="./logout.html" th:href="@{/logout}" class="a-link">ログアウト</a>
+                    <span class="boundary">|</span>
+                </li>
+            </ul>
+            <div class="mt-1 mb-3 login-account">
+                <h>ログイン中：<span sec:authentication="principal.username"></span></h>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="bottom">
+            <img th:src="@{../images/index_photo.jpeg}" alt="トップ画面に表示する写真候補" id="index_photo">
+        </div>
+    </main>
+    <footer>
+        <p class="copyright">
+            COPYRIGHT © 2023 K. All rights Reserved.
+        </p>
+    </footer>
+</div>
+</body>
+</html>

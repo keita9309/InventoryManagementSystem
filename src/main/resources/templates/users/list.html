@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      th:replace="~{fragments/layout :: layout(~{::title}, ~{::body})}">
+<head>
+    <title>登録者一覧</title>
+</head>
+<body>
+<div id=”wrapper”>
+    <header class="pt-10">
+        <div class="header-left">
+            <ul class="ul-left">
+                <li>
+                    <div class="apply-name">
+                        <h1>Zaiko</h1>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="header-right">
+            <ul class="ul-right">
+                <li>
+                    <span class="boundary">|</span>
+                    <a href="../index.html" th:href="@{/}" class="a-link">トップページ</a>
+                </li>
+                <li>
+                    <span class="boundary">|</span>
+                    <a href="../creationForm.html" th:href="@{/users/creationForm}" class="a-link">新規登録</a>
+                    <span class="boundary">|</span>
+                </li>
+            </ul>
+            <div class="mt-1 mb-3 login-account">
+                <h>ログイン中：<span sec:authentication="principal.username"></span></h>
+            </div>
+        </div>
+    </header>
+    <div id="user-list-container">
+        <!--        <div class="container">-->
+        <div>
+            <ul class="display-inline mt-4">
+                <li>
+                    <h1>登録者一覧</h1>
+                </li>
+                <li class="mt-4">
+                    <!-- ページネーション -->
+                    <div>
+                        <ul>
+                            <li style="display:inline;">
+                                <span th:if="${page.first}">&lt;&lt;前</span>
+                                <a
+                                        th:if="${!page.first}"
+                                        th:href="@{/users(page = ${page.number})}"
+                                >
+                                    &lt;&lt;前
+                                </a>
+                            </li>
+                            <li
+                                    th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
+                                    style="display:inline; margin-left:10px;"
+                            >
+                                <span th:if="${i} == ${page.number}" th:text="${i + 1}">1</span>
+                                <a
+                                        th:if="${i} != ${page.number}"
+                                        th:href="@{/users(page = ${i + 1})}"
+                                >
+                                    <span th:text="${i + 1}">1</span>
+                                </a>
+                            </li>
+                            <li style="display:inline; margin-left:10px;">
+                                <span th:if="${page.last}">次&gt;&gt;</span>
+                                <a
+                                        th:if="${!page.last}"
+                                        th:href="@{/users(page = (${page.number + 2}))}"
+                                >
+                                    次&gt;&gt;
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div th:if="${message}">
+            <img th:src="@{../images/checkmark.png}" alt="" id="checkmark" width="22px" height="22px">
+            <span th:text="${message}">(message)</span>
+        </div>
+        <table class="table mt-3" border="1" th:if="${page.totalPages > 0}">
+            <thead>
+            <tr>
+                <th class="pl-20">ユーザー名</th>
+                <th class="pl-20">権限</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${page}">
+                <th class="pl-20" id="user-th-1" th:text="${user.username}">(username)</th>
+                <td class="pl-20" id="td-2" th:text="${user.authority}">(authority)</td>
+                <td id="td-4">
+                    <form th:action="@{/users/editForm}" method="post" th:object="${editUserForm}">
+                        <input type="hidden" th:value="${user.username}" name="username">
+                        <input type="hidden" th:value="${user.authority}" name="authority">
+                        <input type="submit" class="" name="editForm" value="編集">
+                    </form>
+                </td>
+                <td id="td-5">
+                    <form th:action="@{/users/deleteForm}" method="post" th:object="${deleteUserForm}">
+                        <input type="hidden" th:value="${user.username}" name="username">
+                        <input type="submit" class="" name="deleteForm" value="削除">
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

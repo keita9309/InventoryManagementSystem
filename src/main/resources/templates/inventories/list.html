@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      th:replace="~{fragments/layout :: layout(~{::title}, ~{::body})}">
+<head>
+    <title>在庫一覧</title>
+</head>
+<body>
+<header class="pt-10">
+    <div class="header-left">
+        <ul class="ul-left">
+            <li>
+                <div class="apply-name">
+                    <h1>Zaiko</h1>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="header-right">
+        <ul class="ul-right">
+            <li>
+                <span class="boundary">|</span>
+                <a href="../index.html" th:href="@{/}" class="a-link">トップページ</a>
+                <span class="boundary">|</span>
+            </li>
+            <li>
+                <a href="./creationForm.html" th:href="@{/inventories/creationForm}" class="a-link">新規作成</a>
+                <span class="boundary">|</span>
+            </li>
+        </ul>
+        <div class="mt-1 mb-3 login-account">
+            <h>ログイン中：<span sec:authentication="principal.username"></span></h>
+        </div>
+    </div>
+</header>
+
+<div class="container" th:if="${inventoryCount} > 0">
+    <div>
+        <ul class="display-inline mt-4">
+            <li>
+                <h1>在庫一覧</h1>
+            </li>
+            <li class="mt-4">
+                <!-- ページネーション -->
+                <div>
+                    <ul>
+                        <li style="display:inline;">
+                            <span th:if="${page.first}">&lt;&lt;前</span>
+                            <a
+                                    th:if="${!page.first}"
+                                    th:href="@{/inventories(page = ${page.number})}"
+                            >
+                                &lt;&lt;前
+                            </a>
+                        </li>
+                        <li
+                                th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
+                                style="display:inline; margin-left:10px;"
+                        >
+                            <span th:if="${i} == ${page.number}" th:text="${i + 1}">1</span>
+                            <a
+                                    th:if="${i} != ${page.number}"
+                                    th:href="@{/inventories(page = ${i + 1})}"
+                            >
+                                <span th:text="${i + 1}">1</span>
+                            </a>
+                        </li>
+                        <li style="display:inline; margin-left:10px;">
+                            <span th:if="${page.last}">次&gt;&gt;</span>
+                            <a
+                                    th:if="${!page.last}"
+                                    th:href="@{/inventories(page = (${page.number + 2}))}"
+                            >
+                                次&gt;&gt;
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!--<a target="_blank" href="https://icons8.com/icon/bOV6PUpxms3k/%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF">チェック</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>-->
+    <div th:if="${message}">
+        <img th:src="@{../images/checkmark.png}" alt="" id="checkmark" width="22px" height="22px">
+        <span th:text="${message}">(message)</span>
+    </div>
+    <table class="table mt-3" border="1" th:if="${page.totalPages > 0}">
+        <thead>
+        <tr>
+            <th id="th-1" class="th-lateral-1">
+                <input type="button" id="multi-delete-btn" value="削除(※)" data-toggle="modal"
+                       data-target="#delete-modal">
+                <!-- 複数レコード削除用モーダルウィンドウ -->
+                <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog"
+                     aria-labelledby="delete-modal-label"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="delete-modal-label">削除確認</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                選択したデータを削除してもよろしいですか？
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" onclick="submitForm()">
+                                    削除
+                                </button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th>
+            <th class="th-lateral-2">在庫名</th>
+            <th class="th-lateral-3">補足事項</th>
+            <th class="th-lateral-4">在庫数</th>
+            <th class="th-lateral-5"></th>
+            <th class="th-lateral-6"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr id="tr" th:each="inventory : ${page}">
+            <th id="th-2">
+                <form th:action="@{/inventories/multiDeleteForm}" th:method="post" id="delete-form">
+                    <input type="hidden" id="selectedRecords" name="selectedRecords" th:name="selectedRecords"
+                           th:value="${selectedRecords}"/>
+                    <input type="checkbox" name="checkbox" th:name="selectedIds" th:value="${inventory.id}"
+                           class="checks"
+                           onchange="countChecks()">
+                </form>
+            </th>
+            <td class="td-f" id="td-1">
+                <a href="./detail.html" th:href="@{/inventories/{inventoryId}(inventoryId=${inventory.id})}"
+                   th:text="${inventory.inventoryname}">
+                    (inventoryname)
+                </a>
+            </td>
+            <td id="td-2">
+                <span th:text="${inventory.remarks}">(remarks)</span>
+            </td>
+            <td id="td-3">
+                <span th:text="${inventory.stock}">(stock)</span>
+            </td>
+            <td id="td-4">
+                <form th:action="@{/inventories/editForm}" method="post" th:object="${inventoryForm}">
+                    <input type="hidden" th:value="${inventory.id}" name="id">
+                    <input type="hidden" th:value="${inventory.inventoryname}" name="inventoryname">
+                    <input type="hidden" th:value="${inventory.stock}" name="stock">
+                    <input type="hidden" th:value="${inventory.remarks}" name="remarks">
+                    <input type="submit" class="" name="editForm" value="編集">
+                </form>
+            </td>
+            <td id="td-5">
+                <form th:action="@{/inventories/deleteForm}" method="post">
+                    <input type="hidden" th:value="${inventory.id}" name="id">
+                    <input type="button" class="" data-bs-toggle="modal"
+                           th:data-bs-target="'#id' + ${inventory.id}" value="削除">
+                    <!-- Modal 単数用 -->
+                    <div class="modal fade" th:id="'id' + ${inventory.id}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <span>"</span>
+                                    <span th:text="${inventory.inventoryname}">(inventoryname)</span>
+                                    <span>"</span>
+                                    を削除してもよろしいですか？
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-danger" name="delete">削除</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <p>
+            ⚠️「削除(※)」ボタンを押すと選択した項目を同時に消せます。
+            <br>
+            　　ボタンを押すには、2つ以上の項目を選択してください。
+        </p>
+    </div>
+</div>
+<script th:src="@{/js/inventoryList.js}"></script>
+</body>
+</html>

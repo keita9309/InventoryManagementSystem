@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout(~{::title}, ~{::body})}">
+
+<head>
+    <title>削除 |　在庫</title>
+</head>
+
+<body>
+<div id="login_container">
+    <h1 class="mt-3">在庫削除</h1>
+    <form id="deleteForm" action="#" th:action="@{/inventories/deleteForm}" method="post"
+          th:object="${deleteInventoryForm}">
+        <!--在庫名-->
+        <!-- mt → margin-top -->
+        <div class="mt-3">
+            <label for="inventorynameInput" class="form-label">対象の在庫</label>
+            <input type="text" id="inventorynameInput" class="form-control" th:field="*{inventoryname}"
+                   th:classappend="${#fields.hasErrors('inventoryname')} ? is-invalid">
+            <P class="invalid-feedback" th:if="${#fields.hasErrors('inventoryname')}" th:errors="*{inventoryname}">
+                (errors)</P>
+        </div>
+        <!--ボタン(削除・キャンセル)-->
+        <div class="mt-3">
+            <a class="btn btn-primary" data-toggle="modal" data-target="#testModal">削除</a>
+            <a class="btn btn-secondary" href="./list.html" th:href="@{/inventories}">キャンセル</a>
+        </div>
+    </form>
+    <!-- 「削除」ボタンクリック後に表示される画面の内容(モーダルウィンドウ) -->
+    <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="basicModal"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>
+                        <div class="modal-title" id="myModalLabel">削除確認画面</div>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <label>削除したユーザーは元に戻せません。よろしいですか？</label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="deleteButton" class="btn btn-danger"
+                            onclick="submitForm('deleteForm');">はい
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">いいえ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4">
+        <a href="../index.html" th:href="@{/}">▶︎ トップページ</a>
+    </div>
+</div>
+
+<script th:src="@{/js/delete.js}"></script>
+</body>
+
+</html>

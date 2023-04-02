@@ -1,0 +1,346 @@
+
+@charset "UTF-8";
+/*デフォルトマージンを除去*/
+*{
+    margin:0;
+    /*padding: 0;*/
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
+#index-header {
+    padding-top: 10px;
+    height: 83px;
+}
+
+.pt-10 {
+    padding-top: 10px;
+}
+
+#wrapper {
+    width: 100%;
+    min-height: 100%;
+}
+
+#login_container {
+    padding-top: 90px;
+    margin: 0 auto;
+    width: 22em;
+}
+
+#index_photo {
+    height: 100%;
+    width: 100%;
+}
+
+#outer {
+    margin-top: 250px;
+}
+
+#form-button {
+    margin: 0 auto;
+}
+
+#button {
+    width: 15em;
+    height: 4em;
+    font-size: 1.2em;
+}
+
+#button-center {
+    text-align: center;
+}
+
+.center {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/**/
+
+#eye {
+    display: flex;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+#pw-form {
+    position: relative;
+}
+
+.position-to-right {
+    position: absolute;
+    top: 41px;
+    left: 300px;
+}
+
+/**/
+
+.error-text {
+    color: red;
+}
+
+.float-right {
+    float: right;
+}
+
+.float-left {
+    float: left;
+}
+
+li {
+    list-style: none;
+}
+
+ul.display-inline {
+    display: flex;
+    justify-content:space-between;
+    padding-left: 0;
+}
+
+ul.display-inline li {
+    /*padding-left: 5px;*/
+}
+
+.notLogin-header {
+    padding-top: 0px;
+    padding-bottom: 10px;
+}
+
+#success-create-user {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+#success-create-user h1 {
+    margin-top: 160px;
+    text-align: center;
+}
+
+/*
+#username-input {
+    max-width: 50%;
+}
+*/
+
+.noZaikoMessage {
+    display: flex;
+	justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.noZaikoMessage h1 {
+    margin-top: 160px;
+    text-align: center;
+}
+
+.pagination {
+    padding-top: 10px;
+}
+
+#user-list-container {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.pr-10 {
+    padding-right: 30px;
+}
+
+th.pl-20 {
+    padding-left: 20px;
+}
+
+#th-1, #th-2 {
+    width: 2em;
+}
+
+#multi-delete-btn {
+    margin: 0 25px 0 25px;
+}
+
+input[type=checkbox] {
+	transform: scale(1.2);
+	margin: 15px 15px 15px 50px;
+}
+
+#td-1 {
+    width: 15em;
+    padding: 17px 0 5px 0;
+}
+
+#td-2 {
+    padding: 17px 0 0 0;
+}
+
+#td-3 {
+    padding: 17px 0 0 0;
+}
+
+#td-4 {
+    padding: 15px 0 0 0;
+}
+
+#td-5 {
+    padding: 15px 0 0 0;
+}
+
+#checkmark {
+    margin-bottom: 5px;
+}
+
+header {
+    display: flex;
+    background-color: #778899;
+    padding-bottom: 10px;
+}
+
+.display-flex {
+    display: flex;
+}
+
+.apply-name {
+    color: gold;
+    border-bottom: 1px solid gold;
+}
+
+.apply-name h1 {
+    margin: 5px 0;
+}
+
+.header-right {
+    margin: 0 0 0 auto;
+    /*text-align: right;
+    display: block;
+    display: flex;
+    justify-content: flex-end;*/
+}
+
+.a-link, .boundary {
+    text-decoration: none;
+    color: white;
+}
+
+.a-link:hover {
+    color: white;
+    /*background-color: gold;*/
+    /*font-weight: bold;*/
+    text-decoration-line: underline;
+}
+
+.login-account {
+    color: gold;
+    padding-right: 25px;
+    padding-left: 280px;
+}
+
+.boundary {
+    padding: 0 20px 0 20px;
+}
+
+.ul-left {
+    margin-top: 10px;
+    padding-left: 25px;
+}
+
+.ul-right {
+    text-align: right;
+    margin: 12px 0 8px 0;
+}
+
+.ul-right li {
+    display: inline;
+}
+
+main {
+    width: 100%;
+    height: 675px;
+}
+
+.bottom {
+    width: 100%;
+    height: 100%;
+}
+
+footer {
+    display: table;
+    height: 70px;
+    width: 100%;
+    color: white;
+    background-color: #778899;
+}
+
+.copyright {
+    margin: 0 auto;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 12px;
+}
+
+#user-th-1,
+#user-th-2 {
+    padding-top: 20px;
+}
+
+#th-2 {
+    padding-top: 10px;
+}
+
+.th-lateral-1,
+.th-lateral-2,
+.th-lateral-3,
+.th-lateral-4 {
+    border-right: 1px solid gray;
+    width: 15em;
+}
+
+th.th-lateral-2,
+th.th-lateral-3 {
+    padding-left: 30px;
+}
+
+.th-lateral-4,
+ #td-4,
+ #td-5 {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#td-3 {
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 20px;
+}
+
+#td-1,
+#td-2 {
+    padding: 20px;
+}
+
+#td-4,
+#td-5 {
+    padding: 20px 0 20px 0;
+}
+
+/*
+#td-4 {
+    padding-left: 40px;
+}
+*/
+

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      th:replace="~{fragments/layout :: layout(~{::title}, ~{::body})}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>新規作成 | 在庫</title>
+</head>
+<body>
+<header class="pt-10">
+    <div class="header-left">
+        <ul class="ul-left">
+            <li>
+                <div class="apply-name">
+                    <h1>Zaiko</h1>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="header-right">
+        <ul class="ul-right">
+            <li>
+                <span class="boundary">|</span>
+                <a href="../index.html" th:href="@{/}" class="a-link">トップページ</a>
+                <span class="boundary">|</span>
+            </li>
+            <!--            <li>-->
+            <!--                <span class="boundary">|</span>-->
+            <!--                <a href="./creationForm.html" th:href="@{/inventories/creationForm}" class="a-link">新規作成</a>-->
+            <!--                <span class="boundary">|</span>-->
+            <!--            </li>-->
+        </ul>
+        <div class="mt-1 mb-3 login-account">
+            <h>ログイン中：<span sec:authentication="principal.username"></span></h>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <h1 class="mt-3">新規作成</h1>
+    <form action="#" th:action="@{/inventories/creationForm}" th:method="post" th:object="${inventoryForm}">
+        <div class="mt-3">
+            <label for="inventoryInput" class="form-label">在庫名</label>
+            <input type="text" id="inventoryInput" th:field="*{inventoryname}" class="form-control"
+                   th:classappend="${#fields.hasErrors('inventoryname')} ? is-invalid">
+            <p class="invalid-feedback" th:if="${#fields.hasErrors('inventoryname')}" th:errors="*{inventoryname}">
+                (error)</p>
+        </div>
+        <div class="mt-3">
+            <label for="stockInput" class="form-label">在庫数</label>
+            <input type="number" id="stockInput" th:field="*{stock}" class="form-control"
+                   th:classappend="${#fields.hasErrors('stock')} ? is-invalid">
+            <p class="invalid-feedback" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}">(error)</p>
+        </div>
+        <div class="mt-3">
+            <label for="remarksInput" class="form-label">補足事項</label>
+            <textarea id="remarksInput" row="10" th:field="*{remarks}" class="form-control"
+                      th:classappend="${#fields.hasErrors('remarks')} ? is-invalid"></textarea>
+            <p class="invalid-feedback" th:if="${#fields.hasErrors('remarks')}" th:errors="*{remarks}">(error)</p>
+        </div>
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary">作成</button>
+            <a class="btn btn-secondary" data-toggle="modal" data-target="#testModal">キャンセル</a>
+        </div>
+    </form>
+    <!-- 「キャンセル」ボタンクリック後に表示される画面の内容(モーダルウィンドウ) -->
+    <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>
+                        <div class="modal-title" id="myModalLabel">入力取消確認画面</div>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <label>入力内容を取消して、在庫一覧画面に戻りますか？</label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" onclick="history.back()">戻る</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/inventoryCreate.js}"></script>
+</body>
+</html>

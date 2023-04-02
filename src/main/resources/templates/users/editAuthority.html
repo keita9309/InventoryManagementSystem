@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::title}, ~{::body})}">
+<head>
+    <title>ユーザー権限編集</title>
+</head>
+<body>
+<div id="login_container">
+    <h1 class="mt-3">ユーザー権限編集</h1>
+    <form th:action="@{/users/edit}" method="post" th:object="${editUserForm}" id="edit-form">
+        <!--ユーザー名-->
+        <div class="mt-3">
+            <label for="userInput" class="form-label">ユーザー名</label>
+            <input type="text" id="username-input" name="username" class="form-control" th:field="*{username}" disabled>
+            <input type="hidden" id="userInput" name="username" class="form-control" th:field="*{username}">
+        </div>
+        <div class="mt-4">
+            <!--権限を選択できるラジオボタン-->
+            <div class="mt-3">
+                <label class="form-label" for="authorityRadio">権限</label>
+                <div id="authorityRadio">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="authorityAdminRadio"
+                               th:field="*{authority}" th:name="edit" value="ADMIN">
+                        <label class="form-check-label" for="authorityAdminRadio">ADMIN</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="authorityUserRadio"
+                               th:field="*{authority}" th:name="edit" value="USER">
+                        <label class="form-check-label" for="authorityUserRadio">USER</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4">
+            <button type="button" class="btn btn-primary" name="edit" th:name="edit" onclick="editAuthority()">更新
+            </button>
+            <a href="./list.html" th:href="@{/users}" class="btn btn-secondary">キャンセル</a>
+        </div>
+    </form>
+</div>
+<script th:src="@{/js/editUser.js}"></script>
+</body>
+</html>

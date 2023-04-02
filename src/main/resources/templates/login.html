@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::title}, ~{::body})}">
+<head>
+    <meta charset=”utf-8″>
+    <title>ログインページ</title>
+</head>
+<body>
+
+<div id="login_container">
+    <h1 class="mt-3">Login</h1>
+    <div th:if="${param.error}">
+        <p class="error-text">ユーザ名もしくはパスワードが違います。</p>
+    </div>
+    <form action="#" th:action="@{/login}" method="post">
+        <div class="mt-4">
+            <label for="usernameInput" class="form-label">ユーザー名</label>
+            <input type="text" id="usernameInput" name="username" class="form-control">
+        </div>
+        <div id="pw-form" class="mt-3">
+            <label for="passwordInput" class="form-label">パスワード</label>
+            <input type="password" id="passwordInput" name="password" class="form-control" onfocus="focusFunction()">
+            <i id="eye" class="fa-solid fa-eye position-to-right"></i>
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">ログイン</button>
+        </div>
+    </form>
+    <div class="mt-4">
+        <a href="../creationForm.html" th:href="@{/users/creationForm}">▶︎ 新規登録はこちら</a>
+    </div>
+<!--    画面確認用-->
+<!--    <div class="mt-4">-->
+<!--        <a href="../successCreateUser.html" th:href="@{/users/successCreateUser}">▶︎ 新規登録完了画面</a>-->
+<!--    </div>-->
+</div>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
