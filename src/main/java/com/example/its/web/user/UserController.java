@@ -16,7 +16,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
+
     private final UserService userService;
+
     @GetMapping
     public String showList(Model model, Pageable pageable) {
         System.out.println(pageable);
@@ -24,15 +26,18 @@ public class UserController {
         model.addAttribute("page", userService.findAll(pageable));
         return "users/list";
     }
+
     @GetMapping("/creationForm")
     // model.addAttributeと同じような効果が得られる ↓
     public String showCreationForm(@ModelAttribute UserForm from) {
         return "users/creationForm";
     }
+
     @GetMapping("/successCreateUser")
     public String showSuccessCreateUser() {
         return "users/successCreateUser";
     }
+
     // POST /users
     @PostMapping("/creationForm")
     public String createUser(@AuthenticationPrincipal UserDetails user, @Validated UserForm form, BindingResult bindingResult) {
@@ -57,11 +62,13 @@ public class UserController {
         }
 
     }
+
     @PostMapping(path = "deleteForm", params = "deleteForm")
     // public String showDeleteForm(@ModelAttribute DeleteUserForm from) {
     public String deleteForm(@ModelAttribute DeleteUserForm from) {
         return "users/deleteForm";
     }
+
     @PostMapping("/delete")
     public String delete(@Validated DeleteUserForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -73,10 +80,12 @@ public class UserController {
             return "redirect:/users";
         }
     }
+
     @PostMapping(path = "editForm")
     public String editForm(EditUserForm form) {
         return "users/editAuthority";
     }
+
     @PostMapping(path = "edit")
     public String editAuthority(EditUserForm form, RedirectAttributes redirectAttributes) {
         System.out.println("username : " + form.getUsername());

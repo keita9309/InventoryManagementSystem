@@ -21,7 +21,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/inventories")
 @RequiredArgsConstructor
 public class InventoryController {
+
     private final InventoryService inventoryService;
+
     @GetMapping
     public String showList(@AuthenticationPrincipal UserDetails user, Model model, Pageable pageable) {
         int inventoryCount = 0;
@@ -31,10 +33,12 @@ public class InventoryController {
         model.addAttribute("inventoryCount", inventoryService.inventoryTotalCount(user.getUsername()));
         return "inventories/list";
     }
+
     @GetMapping("/creationForm")
     public String showCreationForm(@ModelAttribute InventoryForm form) {
         return "inventories/creationForm";
     }
+
     @PostMapping({"/creationForm"})
     public String createInventory(@AuthenticationPrincipal UserDetails user, @Validated InventoryForm form,
                                   BindingResult bindingResult, RedirectAttributes redirectAttributes) {
@@ -48,6 +52,7 @@ public class InventoryController {
             return "redirect:/inventories";
         }
     }
+
     @PostMapping(path = "editForm", params = "editForm")
     public String editForm(@RequestParam Integer id, @ModelAttribute InventoryForm form, Model model) {
         System.out.println("id : " + id);
@@ -57,6 +62,7 @@ public class InventoryController {
         model.addAttribute("remarks", form.getRemarks());
         return "inventories/edit";
     }
+
     @PostMapping(path = "edit", params = "edit")
     public String edit(@RequestParam Integer id, @ModelAttribute InventoryForm form, RedirectAttributes redirectAttributes) {
         try {
