@@ -10,8 +10,8 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class DeleteUserForm {
     @NotExistUsername
-    private @NotBlank @Size(min = 1, max = 20)
-    String username;
+    @NotBlank @Size(min = 1, max = 20)
+    private String username;
 
     private String authority;
 
