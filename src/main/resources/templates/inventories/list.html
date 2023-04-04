@@ -34,6 +34,17 @@
     </div>
 </header>
 
+<!--在庫が未登録時の画面表示-->
+<div class="noZaikoMessage" th:if="${inventoryCount} == 0">
+    <h1>
+    ⚠️ 表示できる在庫が存在しません。
+    <br><br>
+    画面右上の「新規作成」をクリックして
+    <br><br>
+    画面を移動し、在庫の登録を行ってください！
+    </h1>
+</div>
+
 <div class="container" th:if="${inventoryCount} > 0">
     <div>
         <ul class="display-inline mt-4">
