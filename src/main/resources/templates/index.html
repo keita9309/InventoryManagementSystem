@@ -44,7 +44,7 @@
         <ul class="ul-right">
             <li>
                 <div class="res-login-account">
-                    <div>ログイン中：<span sec:authentication="principal.username"></span></div>
+                    <h3>ログイン中：<span sec:authentication="principal.username"></span></h3>
                 </div>
             </li>
             <li sec:authorize="hasAuthority('ADMIN')" class="mt-3">
