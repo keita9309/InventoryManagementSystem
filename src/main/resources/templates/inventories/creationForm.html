@@ -25,17 +25,37 @@
                 <a href="../index.html" th:href="@{/}" class="a-link">トップページ</a>
                 <span class="boundary">|</span>
             </li>
-            <!--            <li>-->
-            <!--                <span class="boundary">|</span>-->
-            <!--                <a href="./creationForm.html" th:href="@{/inventories/creationForm}" class="a-link">新規作成</a>-->
-            <!--                <span class="boundary">|</span>-->
-            <!--            </li>-->
+            <li>
+                <a href="./logout.html" th:href="@{/logout}" class="a-link">ログアウト</a>
+                <span class="boundary">|</span>
+            </li>
         </ul>
         <div class="mt-1 mb-3 login-account">
             <h>ログイン中：<span sec:authentication="principal.username"></span></h>
         </div>
     </div>
 </header>
+
+<!-- スマホ用ナビゲーションメニュー（レスポンシブデザイン） -->
+<div class="openbtn1"><span></span><span></span><span></span></div>
+<nav id="g-nav">
+    <div id="g-nav-list">
+        <ul class="ul-right">
+            <li>
+                <div class="res-login-account">
+                    <h3>ログイン中：<span sec:authentication="principal.username"></span></h3>
+                </div>
+            </li>
+            <li>
+                <a href="../index.html" th:href="@{/}" class="a-link">トップページ</a>
+            </li>
+            <li class="mt-3">
+                <a href="./logout.html" th:href="@{/logout}" class="res-a-link">ログアウト</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
 <div class="container">
     <h1 class="mt-3">新規作成</h1>
     <form action="#" th:action="@{/inventories/creationForm}" th:method="post" th:object="${inventoryForm}">
