@@ -17,7 +17,7 @@ public class IndexController {
     }
 
     @GetMapping("/logout")
-    public String showLogoutForm(Path path) {
+    public String showLogoutForm() {
         return "logout";
     }
 
