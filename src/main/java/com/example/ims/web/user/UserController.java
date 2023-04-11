@@ -39,7 +39,8 @@ public class UserController {
 
     // POST /users
     @PostMapping("/creationForm")
-    public String createUser(@AuthenticationPrincipal UserDetails user, @Validated UserForm form, BindingResult bindingResult) {
+    public String createUser(@AuthenticationPrincipal UserDetails user, @Validated UserForm form,
+                             RedirectAttributes redirectAttributes, BindingResult bindingResult) {
         // バリデーションエラーが発生した時の処理
         if (bindingResult.hasErrors()) {
             // showCreationFormメソッドを呼び出して、"users/creationForm"にredirect
@@ -52,10 +53,11 @@ public class UserController {
             userService.create(form.getUsername(), form.getPassword(), form.getAuthority());
 
             if (user != null) {
-                // 管理者の場合：ユーザーの新規登録が終わったあとは、一覧画面に戻る(redirect)
+                // 管理者の場合：ユーザーの新規登録が終わったあと、一覧画面に遷移
+                redirectAttributes.addFlashAttribute("message", "新規登録が正常に完了しました。");
                 return "redirect:/users";
             } else {
-                // 一般ユーザーの場合：ユーザーの新規登録が終わったあとは、新規作成完了画面に遷移
+                // 一般ユーザーの場合：ユーザーの新規登録が終わったあと、新規作成完了画面に遷移
                 return "users/successCreateUser";
             }
         }
