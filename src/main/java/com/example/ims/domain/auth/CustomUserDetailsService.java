@@ -15,6 +15,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
+    // VendorMapper vendorMapper; // VendorMapperは初期化するためのインジェクション
+
     private final UserRepository userRepository;
 
     @Override
