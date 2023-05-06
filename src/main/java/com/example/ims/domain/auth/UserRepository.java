@@ -12,25 +12,23 @@ import java.util.Optional;
 @Mapper
 public interface UserRepository {
 
-    @Select("select * from test_users where username = #{username}")
+    @Select("select * from invmng_users where username = #{username}")
     Optional<User> findByUsername(String username);
 
-    @Select("select count(*) from test_users")
+    @Select("select count(*) from invmng_users")
     int count();
 
-    @Select("select * from test_users")
+    @Select("select * from invmng_users")
     List<User> findAll(RowBounds rowBounds);
 
-    @Insert("insert into test_users (username, password, authority) values (#{username}, #{password}, #{authority})")
+    @Insert("insert into invmng_users (username, password, authority) values (#{username}, #{password}, #{authority})")
     void insert(String username, String password, String authority);
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @Delete({"delete from test_users where username = #{username}"})
+    @Delete({"delete from invmng_users where username = #{username}"})
     void delete(String username);
 
-    @Update("update test_users set authority = #{authority} where username = #{username}")
+    @Update("update invmng_users set authority = #{authority} where username = #{username}")
     void editAuthority(String username, String authority);
-
-
 
 }
