@@ -16,40 +16,19 @@
                 </li>
             </ul>
         </div>
-        <div class="header-right">
-            <ul class="ul-right">
-                <li>
-                    <!--                    <span class="boundary">|</span>-->
-                    <!--                    <a href="../index.html" th:href="@{/}" class="a-link">トップページ</a>-->
-                    <!--                    <span class="boundary">|</span>-->
-                    <!--                </li>-->
-                    <!--                <li>-->
-                    <span class="boundary">|</span>
-                    <a href="./login.html" th:href="@{/login}" class="a-link">ログイン</a>
-                    <span class="boundary">|</span>
-                </li>
-            </ul>
-<!--            <div class="mt-1 mb-3 login-account">-->
-<!--                &lt;!&ndash;                <h>ログイン中：<span sec:authentication="principal.username"></span></h>&ndash;&gt;-->
-<!--                <h>未ログイン</h>-->
-<!--            </div>-->
-        </div>
     </header>
 
     <div id="success-create-user">
-        <h1>
+        <p>
             ユーザーの登録が完了しました！
+            <br><br>
+            下記の「ログインはこちら」をクリックし、
             <br>
-            　
-            <br>
-            画面右上の「ログイン」を押すと、ログイン画面に移動します。
-        </h1>
+            ログイン画面に移動してください。
+            <br><br>
+            <a href="./login.html" th:href="@{/login}">▶︎ ログインはこちら</a>
+        </p>
     </div>
-    <!--    <footer>-->
-    <!--        <p class="copyright">-->
-    <!--            COPYRIGHT © 2023 K. All rights Reserved.-->
-    <!--        </p>-->
-    <!--    </footer>-->
 </div>
 </body>
 </html>
